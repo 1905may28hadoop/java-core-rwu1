@@ -1,7 +1,12 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class EvaluationService {
 
@@ -15,7 +20,15 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String acronym = phrase.substring(0,1);
+		for (int i=0;i<phrase.length();i++) {
+			if (phrase.charAt(i) == ' ') {
+				acronym = acronym + phrase.substring(i+1, i+2);
+			}
+		}
+		acronym = acronym.toUpperCase();
+		System.out.println(acronym);
+		return acronym;
 	}
 
 	/**
@@ -35,6 +48,88 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
+		int score = 0;
+		for (int i=0;i<string.length();i++) {
+			if ((string.charAt(i) == 'a') || (string.charAt(i) == 'A')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'e') || (string.charAt(i) == 'E')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'i') || (string.charAt(i) == 'I')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'o') || (string.charAt(i) == 'O')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'u') || (string.charAt(i) == 'U')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'l') || (string.charAt(i) == 'L')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'n') || (string.charAt(i) == 'N')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'r') || (string.charAt(i) == 'R')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 's') || (string.charAt(i) == 'S')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 't') || (string.charAt(i) == 'T')) {
+				score = score + 1;
+			}
+			if ((string.charAt(i) == 'd') || (string.charAt(i) == 'D')) {
+				score = score + 2;
+			}
+			if ((string.charAt(i) == 'g') || (string.charAt(i) == 'G')) {
+				score = score + 2;
+			}
+			if ((string.charAt(i) == 'b') || (string.charAt(i) == 'B')) {
+				score = score + 3;
+			}
+			if ((string.charAt(i) == 'c') || (string.charAt(i) == 'C')) {
+				score = score + 3;
+			}
+			if ((string.charAt(i) == 'm') || (string.charAt(i) == 'M')) {
+				score = score + 3;
+			}
+			if ((string.charAt(i) == 'p') || (string.charAt(i) == 'P')) {
+				score = score + 3;
+			}
+			if ((string.charAt(i) == 'h') || (string.charAt(i) == 'H')) {
+				score = score + 4;
+			}
+			if ((string.charAt(i) == 'v') || (string.charAt(i) == 'V')) {
+				score = score + 4;
+			}
+			if ((string.charAt(i) == 'f') || (string.charAt(i) == 'F')) {
+				score = score + 4;
+			}
+			if ((string.charAt(i) == 'w') || (string.charAt(i) == 'W')) {
+				score = score + 4;
+			}
+			if ((string.charAt(i) == 'y') || (string.charAt(i) == 'Y')) {
+				score = score + 4;
+			}
+			if ((string.charAt(i) == 'k') || (string.charAt(i) == 'K')) {
+				score = score + 5;
+			}
+			if ((string.charAt(i) == 'j') || (string.charAt(i) == 'J')) {
+				score = score + 8;
+			}
+			if ((string.charAt(i) == 'x') || (string.charAt(i) == 'X')) {
+				score = score + 8;
+			}
+			if ((string.charAt(i) == 'q') || (string.charAt(i) == 'Q')) {
+				score = score + 10;
+			}
+			if ((string.charAt(i) == 'z') || (string.charAt(i) == 'Z')) {
+				score = score + 10;
+			}
+		}
+		System.out.println(score);
 		return 0;
 	}
 
@@ -71,6 +166,27 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// Strings in java are immutable, so let's use String to create a character array and be able to manipulate them
+		String str = string;
+		
+		String cleanstr;
+		
+		cleanstr = str.replaceAll("\\.|-","")
+						.replaceAll("\\s", "")
+						.replaceAll("\\(", "")
+						.replaceAll("\\)", "");
+
+		
+		// Print the string
+		System.out.println(cleanstr);
+		
+		// while the phone number is more than 10 digits and the first digit is one then...
+		while ((cleanstr.length())>10) {
+			System.err.println("IllegalArgumentException: Over ten digits");
+			throw new IllegalArgumentException();
+		}
+
 		return null;
 	}
 
@@ -85,6 +201,28 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// Put each word into a string array
+		String strArray[] = string.split(" |,");
+//		String strArray[] = string.split(",\n");
+//		System.out.println("String converted to String Array");
+		
+		// Map
+		Map<String, Integer> map = new HashMap<>();
+		
+		int count = 0;
+		// Loop through the string array
+		for(int i=0;i<strArray.length;i++) {
+			String word = strArray[i];
+//			System.out.println(word);
+			int freq = map.getOrDefault(word, count);
+			map.put(word, ++freq);
+		}
+        for (Entry<String, Integer> result : map.entrySet()) {
+            System.out.println(result.getKey() + " " + result.getValue());
+        }
+//		System.out.println(map);
+		
 		return null;
 	}
 
@@ -128,6 +266,41 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			
+			// define our left and right positions
+//			int left = 0;
+//			int right = (sortedList.size() - 1);
+			
+			// Cast Type T to an object then to an int or string
+			if (t instanceof Integer) {
+				T objT = t;
+				int a = (Integer)objT;
+				System.out.println("Input: " + a);
+			} else if (t instanceof String) {
+				T objT = t;
+				String b = (String)objT;
+				System.out.println("Input: " + b);
+			}
+
+			
+//			
+//			
+//			if (t instanceof Integer) {
+//				while(left<=right) {
+//					// define our midpoint
+//					int mid = left + ((right - left) / 2);
+//					if (sortedList.get(mid) == Integer.parse) {
+//						System.out.println("Found it! The index is: " + sortedList.get(mid) );
+//					} else if (t. < sortedList.get(mid) ) {
+//						right = mid - 1;
+//					} else {
+//						left = mid + 1;
+//					}
+//			} else (t instanceof String){
+//				
+//			}
+//			
+//			
 			return 0;
 		}
 
@@ -163,7 +336,48 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		
+		int number = input;
+		System.out.println("Input: " + number);
+		// store the input integer into an array
+		ArrayList<Integer> intArray = new ArrayList<>();
+		ArrayList<Integer> expArray = new ArrayList<>();
+		
+//		// split the input integer into individual digits
+		while (number > 0) {
+			intArray.add(number % 10);
+			number = number / 10;
+		}
+//		
+		System.out.println("Array:" + intArray);
+		System.out.println("Array size: "+ intArray.size());
+//		 loop through the integer array
+		for(int i=0; i<intArray.size(); i++) {
+			int a = intArray.get(i);
+			int b = intArray.size();
+//			// exponentiation each element by the array size
+			int exp = (int) (Math.pow(a, b));
+//			System.out.println("Exponent: " + exp);
+			expArray.add(exp);
+		}
+		System.out.println("Array after Exponentiation: " + expArray);
+		// sum the elements in the array
+		int sum = 0;
+		for (int j=0;j<expArray.size();j++) {
+			sum += expArray.get(j);
+		}
+		System.out.println("Sum: " + sum);
+		
+		// if the sum equals the input then it is a armstrong number else false
+		if (input == sum) {
+			System.out.println("True");
+			return true;
+		}
+		else {
+			System.out.println("False");
+			return false;
+		}
+	
 	}
 
 	/**
@@ -178,6 +392,35 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
+		
+		// store input number into a variable
+		long number = l;
+		// store prime factors in an array
+		ArrayList<Integer> primeFactorArray = new ArrayList<>();
+		
+		while (number % 2 == 0) {
+			primeFactorArray.add(2);
+			number = number / 2;
+		}
+		while (number % 3 == 0) {
+			primeFactorArray.add(3);
+			number = number / 3;
+		}
+//		while (number % 5 == 0) {
+//			primeFactorArray.add(5);
+//			number = number / 5;
+//		}
+		
+		for (int i=3;i<=Math.sqrt(number);i+=2) {
+			while (number % i == 0) {
+				primeFactorArray.add(i);
+				number = number / i;
+			}
+		}
+		
+		System.out.println(primeFactorArray);
+		
+		
 		return null;
 	}
 
@@ -216,6 +459,53 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
+			
+			// Make input string lowercase
+			String lowercase = string.toLowerCase();
+			
+			// create an alphabet character array
+			char[] alphabet = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+			System.out.println(Arrays.toString(alphabet));
+			
+			// create a cipher character array
+			char[] cipher = new char[] {'z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a'};
+			System.out.println(Arrays.toString(cipher));
+			
+			// create input character array
+			char[] input = lowercase.toCharArray();
+			System.out.println("Input: " + Arrays.toString(input));
+			
+			// create output character array
+			ArrayList<Character> outputArray = new ArrayList<>();	
+			
+			// loop through the input
+			for(int i=0;i<input.length;i++) {
+				// loop through the alphabet while looping through the input
+				for (int j=0;j<alphabet.length;j++) {
+					// store the alphabet element into a char variable
+					char element = alphabet[j];
+					// if the input element matches the alphabet element then...
+					while (input[i] == element) {
+						// set the alphabet element equal to the cipher element (keeping the same index in both arrays)
+						element = cipher[j];
+						// append the cipher element to the output array
+						outputArray.add(element);
+						}
+				}
+			}
+			// for every 5th element in the output array insert a space
+			for (int k=5;k<outputArray.size();k+=6) {
+				outputArray.add(k, ' ');
+			}
+			System.out.println("Output: " + outputArray);
+			// convert character array to string
+			StringBuilder output = new StringBuilder();
+			for (char ch: outputArray) {
+				output.append(ch);
+			}
+			String str = output.toString();
+			System.out.println(str);
+			
 			return null;
 		}
 
@@ -227,6 +517,56 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
+			
+//			// Make input string lowercase
+//			String lowercase = string.toLowerCase();
+			
+			// create an alphabet character array
+			char[] alphabet = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+			System.out.println(Arrays.toString(alphabet));
+			
+			// create a cipher character array
+			char[] cipher = new char[] {'z','y','x','w','v','u','t','s','r','q','p','o','n','m','l','k','j','i','h','g','f','e','d','c','b','a'};
+			System.out.println(Arrays.toString(cipher));
+			
+//			// create input character array
+			char[] input = string.toCharArray();
+			System.out.println("Input: " + Arrays.toString(input));	
+			
+			// create output character array
+			ArrayList<Character> outputArray = new ArrayList<>();
+			
+//			// for every 5th element in the input array remove a space
+//			for (int k=5;k<inputArray.size();k+=6) {
+//				inputArray.remove(k);
+//			}
+			
+			// loop through the input
+			for(int i=0;i<input.length;i++) {
+				// loop through the cipher while looping through the input
+				for (int j=0;j<cipher.length;j++) {
+					// store the cipher element into a char variable
+					char element = cipher[j];
+					// if the input element matches the cipher element then...
+					while (input[i] == element) {
+						// set the cipher element equal to the alphabet element (keeping the same index in both arrays)
+						element = alphabet[j];
+						// append the alphabet element to the output array
+						outputArray.add(element);
+						}
+				}
+			}
+			System.out.println("Output: " + outputArray);
+			// convert character array to string
+			StringBuilder output = new StringBuilder();
+			for (char ch: outputArray) {
+				output.append(ch);
+			}
+			String str = output.toString();
+			System.out.println(str);
+			
+			
+			
 			return null;
 		}
 	}
@@ -260,6 +600,57 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
+
+		// Remove the question mark
+		String cleanString = string.replace("?", "");
+		// Split string into words array
+		String wordArray[] = cleanString.split(" ");
+		System.out.println(Arrays.toString(wordArray));
+		
+		// declare variables for the operators
+		String plus = "plus";
+		String minus = "minus";
+		String multiply = "multiplied";
+		String divide = "divided";
+		
+		// loop through the word array
+		for (int i=0;i<wordArray.length;i++) {
+			// if the words array contains an operator then do the math
+			if (wordArray[i].equals(plus)){
+				int a = Integer.parseInt(wordArray[i-1]);
+				System.out.println("a = " + a);
+				int b = Integer.parseInt(wordArray[i+1]);
+				System.out.println("b = " + b);
+				int result = a + b;
+				System.out.println("a + b = " + result);
+			}
+			if (wordArray[i].equals(minus)){
+				int a = Integer.parseInt(wordArray[i-1]);
+				System.out.println("a = " + a);
+				int b = Integer.parseInt(wordArray[i+1]);
+				System.out.println("b = " + b);
+				int result = a - b;
+				System.out.println("a - b = " + result);
+			}
+			if (wordArray[i].equals(multiply)){
+				int a = Integer.parseInt(wordArray[i-1]);
+				System.out.println("a = " + a);
+				int b = Integer.parseInt(wordArray[i+2]);
+				System.out.println("b = " + b);
+				int result = a * b;
+				System.out.println("a * b = " + result);
+			}
+			if (wordArray[i].equals(divide)){
+				int a = Integer.parseInt(wordArray[i-1]);
+				System.out.println("a = " + a);
+				int b = Integer.parseInt(wordArray[i+2]);
+				System.out.println("b = " + b);
+				int result = a / b;
+				System.out.println("a / b = " + result);
+			}
+		}
+		
+		
 		return 0;
 	}
 
