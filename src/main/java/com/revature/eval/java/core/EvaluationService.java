@@ -130,7 +130,7 @@ public class EvaluationService {
 			}
 		}
 		System.out.println(score);
-		return 0;
+		return score;
 	}
 
 	/**
@@ -187,7 +187,7 @@ public class EvaluationService {
 			throw new IllegalArgumentException();
 		}
 
-		return null;
+		return cleanstr;
 	}
 
 	/**
@@ -223,7 +223,7 @@ public class EvaluationService {
         }
 //		System.out.println(map);
 		
-		return null;
+		return map;
 	}
 
 	/**
@@ -273,34 +273,51 @@ public class EvaluationService {
 			
 			// Cast Type T to an object then to an int or string
 			if (t instanceof Integer) {
-				T objT = t;
-				int a = (Integer)objT;
-				System.out.println("Input: " + a);
-			} else if (t instanceof String) {
-				T objT = t;
-				String b = (String)objT;
-				System.out.println("Input: " + b);
-			}
-
-			
-//			
-//			
-//			if (t instanceof Integer) {
-//				while(left<=right) {
-//					// define our midpoint
-//					int mid = left + ((right - left) / 2);
-//					if (sortedList.get(mid) == Integer.parse) {
-//						System.out.println("Found it! The index is: " + sortedList.get(mid) );
-//					} else if (t. < sortedList.get(mid) ) {
-//						right = mid - 1;
-//					} else {
-//						left = mid + 1;
-//					}
-//			} else (t instanceof String){
 //				
-//			}
-//			
-//			
+				int a = (Integer)t;
+				System.out.println("Input: " + a);
+				
+				int left = 0;
+				int right = (sortedList.size() - 1);
+				
+				while(left<=right) {
+					// define our midpoint
+					int mid = left + ((right - left) / 2);
+					if (sortedList.get(mid).equals(a)) {
+						System.out.println("Found it! The index is: " + mid );
+						return mid;
+					}
+					if (a < (Integer)sortedList.get(mid) ) {
+						right = mid - 1;
+					} else {
+						left = mid + 1;
+					}
+				}
+			}
+			else if (t instanceof String) {
+//				T objT = t;
+				String b = (String)t;
+				int c = (Integer.parseInt(b));
+				System.out.println("Input: " + b);
+				
+				int left = 0;
+				int right = (sortedList.size() - 1);
+				
+				while(left<=right) {
+					// define our midpoint
+					int mid = left + ((right - left) / 2);
+					if (sortedList.get(mid).equals(b)) {
+						System.out.println("Found it! The index is: " + mid );
+						return mid;
+					}
+					if (c < (Integer)sortedList.get(mid) ) {
+						right = mid - 1;
+					} else {
+						left = mid + 1;
+					}
+				}
+			}
+			
 			return 0;
 		}
 
@@ -396,14 +413,14 @@ public class EvaluationService {
 		// store input number into a variable
 		long number = l;
 		// store prime factors in an array
-		ArrayList<Integer> primeFactorArray = new ArrayList<>();
+		ArrayList<Long> primeFactorArray = new ArrayList<>();
 		
 		while (number % 2 == 0) {
-			primeFactorArray.add(2);
+			primeFactorArray.add(2L);
 			number = number / 2;
 		}
 		while (number % 3 == 0) {
-			primeFactorArray.add(3);
+			primeFactorArray.add(3L);
 			number = number / 3;
 		}
 //		while (number % 5 == 0) {
@@ -411,7 +428,7 @@ public class EvaluationService {
 //			number = number / 5;
 //		}
 		
-		for (int i=3;i<=Math.sqrt(number);i+=2) {
+		for (long i=3;i<=Math.sqrt(number);i+=2) {
 			while (number % i == 0) {
 				primeFactorArray.add(i);
 				number = number / i;
@@ -421,7 +438,7 @@ public class EvaluationService {
 		System.out.println(primeFactorArray);
 		
 		
-		return null;
+		return primeFactorArray;
 	}
 
 
@@ -506,7 +523,7 @@ public class EvaluationService {
 			String str = output.toString();
 			System.out.println(str);
 			
-			return null;
+			return str;
 		}
 
 		/**
@@ -567,7 +584,7 @@ public class EvaluationService {
 			
 			
 			
-			return null;
+			return str;
 		}
 	}
 
@@ -623,6 +640,7 @@ public class EvaluationService {
 				System.out.println("b = " + b);
 				int result = a + b;
 				System.out.println("a + b = " + result);
+				return result;
 			}
 			if (wordArray[i].equals(minus)){
 				int a = Integer.parseInt(wordArray[i-1]);
@@ -631,6 +649,7 @@ public class EvaluationService {
 				System.out.println("b = " + b);
 				int result = a - b;
 				System.out.println("a - b = " + result);
+				return result;
 			}
 			if (wordArray[i].equals(multiply)){
 				int a = Integer.parseInt(wordArray[i-1]);
@@ -639,6 +658,7 @@ public class EvaluationService {
 				System.out.println("b = " + b);
 				int result = a * b;
 				System.out.println("a * b = " + result);
+				return result;
 			}
 			if (wordArray[i].equals(divide)){
 				int a = Integer.parseInt(wordArray[i-1]);
@@ -647,6 +667,7 @@ public class EvaluationService {
 				System.out.println("b = " + b);
 				int result = a / b;
 				System.out.println("a / b = " + result);
+				return result;
 			}
 		}
 		
